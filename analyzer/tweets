@@ -28,6 +28,7 @@ import sys
 
 from analyzer import Analyzer
 from termcolor import colored
+from helpers import get_user_timeline
 
 def main():
 

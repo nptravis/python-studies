@@ -1,4 +1,9 @@
-from analyzer import Analyzer
+from twython import Twython, TwythonError
 
-x = Analyzer("positive-words.txt", "negative-words.txt")
-print(x.analyze("hello.txt"))
+twitter = Twython(APP_KEY, APP_SECRET, OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
+try:
+    user_timeline = twitter.get_user_timeline(screen_name='ryanmcgrath')
+except TwythonError as e:
+    print e
+
+print user_timeline
