@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+
+# Complete the implementation of main in tweets in such a way that program
+
+# accepts one and only one command-line argument, the screen name for a user on Twitter,
+
+# queries Twitter’s API for a user’s most recent 50 tweets,
+
+# analyzes the sentiment of each of those tweets, and
+
+# outputs each tweet’s score and text, colored in green if positive, red if negative, and yellow otherwise.
+
+# TODO
+# ensure proper usage
+#  look at smile
+# get tweets
+#  helpers.py
+#    get_user_timeline
+#  check if successful
+#		 (what does the function return if failed)
+#  error message if unsuccessful
+#    sys.exit
+#  user TweetTokenizer in nltk
+# initialize Analyzer
+# analyze tweets
+import os
+import sys
+
+from analyzer import Analyzer
+from termcolor import colored
+
+def main():
+
+    # ensure proper usage
+    if len(sys.argv) != 2:
+        sys.exit("Usage: ./tweet @screen_name")
+
+    # absolute paths to lists
+    positives = os.path.join(sys.path[0], "positive-words.txt")
+    negatives = os.path.join(sys.path[0], "negative-words.txt")
+
+    # instantiate analyzer
+    analyzer = Analyzer(positives, negatives)
+
+    # analyze word
+    score = analyzer.analyze(sys.argv[1])
+    if score > 0.0:
+        print(colored(":)", "green"))
+    elif score < 0.0:
+        print(colored(":(", "red"))
+    else:
+        print(colored(":|", "yellow"))
+
+if __name__ == "__main__":
+    main()

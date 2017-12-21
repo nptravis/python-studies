@@ -1,0 +1,1 @@
+from app import app # The Flask application instance is called app and is a member of the app package
