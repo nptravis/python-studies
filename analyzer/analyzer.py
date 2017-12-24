@@ -22,14 +22,7 @@ class Analyzer():
 
 
     def analyze(self, text):
-        user_data = set([])
-        with open(text, "r") as file:
-            for line in file:
-                if (line.startswith(';') == False) and (line.startswith('\n') == False):
-                    words = word_tokenize(line.strip())
-                    for i in range(len(words)):
-                        user_data.add(words[i].strip())
-        
+        user_data = set(text)
         if self.positives.intersection(user_data) > self.negatives.intersection(user_data):
             return 1
         elif self.negatives.intersection(user_data) > self.positives.intersection(user_data):
