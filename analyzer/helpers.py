@@ -51,16 +51,17 @@ def get_user_timeline(screen_name, count=200):
     # https://dev.twitter.com/rest/reference/get/users/lookup
     # https://dev.twitter.com/rest/reference/get/statuses/user_timeline
     # https://github.com/ryanmcgrath/twython/blob/master/twython/endpoints.py
-    try:
-        twitter = Twython(os.environ.get("API_KEY"), os.environ.get("API_SECRET"))
-        user = twitter.lookup_user(screen_name=screen_name.lstrip("@"))
-        if user[0]["protected"]:
-            return None
-        tweets = twitter.get_user_timeline(screen_name=screen_name, count=count)
-        return [html.unescape(tweet["text"].replace("\n", " ")) for tweet in tweets]
-    except TwythonAuthError:
-        raise RuntimeError("invalid API_KEY and/or API_SECRET") from None
-    except TwythonRateLimitError:
-        raise RuntimeError("you've hit a rate limit") from None
-    except TwythonError:
+    
+    # try:
+    twitter = Twython(os.environ.get("API_KEY"), os.environ.get("API_SECRET"))
+    user = twitter.lookup_user(screen_name=screen_name.lstrip("@"))
+    if user[0]["protected"]:
         return None
+    tweets = twitter.get_user_timeline(screen_name=screen_name, count=count)
+    return [tweet["text"].replace("\n", " ") for tweet in tweets]
+    # except TwythonAuthError:
+    #     raise RuntimeError("invalid API_KEY and/or API_SECRET") from None
+    # except TwythonRateLimitError:
+    #     raise RuntimeError("you've hit a rate limit") from None
+    # except TwythonError:
+    #     return None

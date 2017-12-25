@@ -1,4 +1,4 @@
-
+import html
 from nltk.tokenize import TweetTokenizer
 # from twython import Twython, TwythonError
 # import class Twython, and exception class TwythonError
@@ -15,4 +15,5 @@ from nltk.tokenize import TweetTokenizer
 text = "@katyperry this is a tweet #cool #whatwhat"
 t = TweetTokenizer()
 tokens = t.tokenize(text)
-print(tokens)
+h = html.unescape(tokens)
+print(h)

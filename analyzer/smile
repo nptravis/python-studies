@@ -20,6 +20,7 @@ def main():
     analyzer = Analyzer(positives, negatives)
 
     # analyze word
+
     score = analyzer.analyze(sys.argv[1])
     if score > 0.0:
         print(colored(":)", "green"))

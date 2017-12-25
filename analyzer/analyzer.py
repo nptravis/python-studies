@@ -1,6 +1,7 @@
 import nltk
 # nltk.download('punkt')
 from nltk.tokenize import word_tokenize
+from nltk.tokenize import TweetTokenizer
 
 class Analyzer():
     """Implements sentiment analysis."""
@@ -22,7 +23,8 @@ class Analyzer():
 
 
     def analyze(self, text):
-        user_data = set(text)
+        t = TweetTokenizer()
+        user_data = set(t.tokenize(text))
         if self.positives.intersection(user_data) > self.negatives.intersection(user_data):
             return 1
         elif self.negatives.intersection(user_data) > self.positives.intersection(user_data):
