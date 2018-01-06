@@ -19,3 +19,5 @@ borrow from login.html
 need to add a password confirmation field
 via POST request
 know why?
+
+pwd_context.encrypt

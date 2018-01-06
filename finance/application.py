@@ -122,12 +122,11 @@ def register():
             return apology("Sorry, username or password already taken")
         else:
             session["user_id"] = rows[0]["id"]
+            return render_template("index.html")
 
     else:
         return render_template("register.html")
     
-    return render_template("index.html")
-
 @app.route("/sell", methods=["GET", "POST"])
 @login_required
 def sell():
