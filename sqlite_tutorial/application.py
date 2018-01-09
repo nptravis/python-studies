@@ -2,26 +2,27 @@ import sqlite3
 from employee import Employee
 
 # database that lives on disk:
-# conn = sqlite3.connect('employee.db')
+conn = sqlite3.connect('employee.db')
 
 # database that lives in memory(on RAM):
-conn = sqlite3.connect(':memory:')
+# conn = sqlite3.connect(':memory:')
 
 c = conn.cursor()
 
 # the quotes make a docstring, writes a string with multiple lines
 
 # ran this once, which created the table, then comment it out to add data to the table to avoid 'table already exists' error, unless running in memory :)
-c.execute("""CREATE TABLE employees (
-					first text,
-					last text,
-					pay real
-					)""")
+# c.execute("""CREATE TABLE employees (
+					# first text,
+					# last text,
+					# pay real
+					# )""")
 
 def insert_emp(emp):
 	# using context manager statement 'with' so will automatically commit after the insert
 	with conn:
-		c.execute("INSERT INTO employees VALUES(:first, :last, :last)", {'first': emp.first, 'last': emp.last,'pay': emp.pay,})
+		c.execute("INSERT INTO employees VALUES(:first, :last, :pay)", {'first': emp.first, 'last': emp.last,'pay': emp.pay,})
+		# c.execute("INSERT INTO employees VALUES(:first, :last, :pay", first=emp.first, last=emp.last, pay=emp.pay)
 
 def get_emps_by_name(lastname):
 	# don't need to commit a select statement, so no context manager
@@ -36,17 +37,18 @@ def remove_emp(emp):
 	with conn:
 		c.execute("DELETE from employees WHERE first = :first AND last = :last", {'first': emp.first, 'last': emp.last})
 
-emp_1 = Employee('John', 'Doe', 80000.00)
+emp_1 = Employee('Little', 'Fred', 80000.00)
 emp_2 = Employee('Jayne', 'Doe', 1000000.00)
 
 insert_emp(emp_1)
-insert_emp(emp_2)
+# print(emp_1.pay)
+# insert_emp(emp_2)
 
-emps = get_emps_by_name('Doe')
-print(emps)
+# emps = get_emps_by_name('Doe')
+# print(emps)
 
-update_pay(emp_2, 95000)
-remove_emp(emp_1)
+# update_pay(emp_2, 95000)
+# remove_emp(emp_1)
 # print(emp_1.first)
 # print(emp_1.last)
 # print(emp_1.pay)

@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+    <h1>History of Transactions</h1>
+    <h2> {{ message }}</h2>
+    <table style="width:100%">
+      <tr>
+        <th>Transaction Number</th>
+        <th>Stock</th>
+        <th>Shares</th>
+        <th>Buy Price</th>
+        <th>Time/Date</th>
+      </tr>
+      {% for item in user_history %}
+      <tr>
+        <td>{{ item.transaction_number }}</td>
+        <td>{{ item.stock_name }}</td>
+        <td>{{ item.shares }}</td>
+        <td>{{ item.price }}</td>
+        <td>{{ item.timestamp }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <h2>Your current cash is: {{ usd(current_cash) }}</h2>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+    <h1>Portfolio</h1>
+    <h2> {{ message }}</h2>
+    <table style="width:100%">
+      <tr>
+        <th>Stock</th>
+        <th>Shares</th>
+        <th>Current Price</th>
+        <th>Total Value</th>
+      </tr>
+      {% for item in user_history %}
+      <tr>
+          {% if item.total_shares <= 0 %}
+            {% continue %}
+          {% endif %}
+        <td>{{ item.stock_name }}</td>
+        <td>{{ item.total_shares }}</td>
+        <td>{{ usd(lookup(item.stock_name)['price']) }}</td>
+        <td>{{ usd(lookup(item.stock_name)['price']*item.total_shares) }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <h2>Your current cash is: {{ usd(current_cash) }}</h2>
+{% endblock %}
